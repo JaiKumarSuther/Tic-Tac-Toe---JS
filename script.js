@@ -1,12 +1,16 @@
+// Select all elements with the class 'box' and assign them to the variable 'boxes'
 const boxes = document.querySelectorAll('.box');
 
+// Select the element with the class 'game-info' and assign it to the variable 'gameInfo'
 const gameInfo = document.querySelector('.game-info');
 
+// Select the element with the class 'btn' and assign it to the variable 'newGameBtn'
 const newGameBtn = document.querySelector('.btn');
 
-let currentPlayer;
-let gameGrid;
+let currentPlayer;  // Variable to keep track of the current player
+let gameGrid;       // Variable to keep track of the game grid
 
+// Array of winning positions on the tic-tac-toe grid
 const winningPositions = [
     [0, 1, 2], // Row 1
     [3, 4, 5], // Row 2
@@ -18,103 +22,94 @@ const winningPositions = [
     [2, 4, 6]  // Diagonal 2
 ];
 
-
-// let's create a function  to initialize the game
-
+// Function to initialize the game
 function initGame() {
-    currentPlayer = 'X';
-    gameGrid = ["", "", "", "", "", "", "", "", ""];
+    currentPlayer = 'X';  // Set the current player to 'X'
+    gameGrid = ["", "", "", "", "", "", "", "", ""];  // Initialize the game grid with empty strings
 
+    // Set up each box for a new game
     boxes.forEach((box, index) => {
-        box.innerHTML = '';
-        box.style.pointerEvents = 'all';
-        // one more thing is missing? initialize initial css properties again
-        box.classList = `box box${index+1}`;
-    })
+        box.innerHTML = '';  // Clear the box content
+        box.style.pointerEvents = 'all';  // Enable pointer events
+        box.classList = `box box${index + 1}`;  // Reset the box class
+    });
 
-    newGameBtn.classList.remove('active');
-    gameInfo.classList.remove('tied');
-    gameInfo.classList.remove('winner');
-    gameInfo.innerText = `Current Player - ${currentPlayer}`
+    newGameBtn.classList.remove('active');  // Deactivate the new game button
+    gameInfo.classList.remove('tied');  // Remove the 'tied' class from game info
+    gameInfo.classList.remove('winner');  // Remove the 'winner' class from game info
+    gameInfo.innerText = `Current Player - ${currentPlayer}`;  // Display the current player
 }
 
+// Call the initGame function to start the game
 initGame();
 
+// Function to swap the turn between players
 function swapTurn() {
-    currentPlayer = (currentPlayer === 'X') ? 'O' : 'X';
-    gameInfo.innerText = `Current Player - ${currentPlayer}`
+    currentPlayer = (currentPlayer === 'X') ? 'O' : 'X';  // Swap the current player
+    gameInfo.innerText = `Current Player - ${currentPlayer}`;  // Update the game info
 }
 
-
+// Add event listeners to each box for handling clicks
 boxes.forEach((box, index) => {
     box.addEventListener('click', () => {
-        handleClick(index);
-        console.log('hi')
+        handleClick(index);  // Call handleClick function when a box is clicked
     });
 });
 
-let type = true;
-
+// Function to handle a box click
 function handleClick(index) {
-    if (!boxes[index].innerText) {
-        boxes[index].innerText= currentPlayer;
-        gameGrid[index] = currentPlayer;
-        boxes[index].style.pointerEvents = 'none';
-        // swap turn
-        swapTurn();
-        // check koi jheet to nahin gaya
-        checkGameOver();
-
-        console.log(gameGrid)
-
-
+    if (!boxes[index].innerText) {  // Check if the box is empty
+        boxes[index].innerText = currentPlayer;  // Set the box content to the current player
+        gameGrid[index] = currentPlayer;  // Update the game grid
+        boxes[index].style.pointerEvents = 'none';  // Disable pointer events for the clicked box
+        swapTurn();  // Swap the turn
+        checkGameOver();  // Check if the game is over
     }
 }
 
+// Function to check if the game is over
 function checkGameOver() {
-    let answer = '';
+    let answer = '';  // Variable to store the winner
 
+    // Check each winning position
     winningPositions.forEach((position) => {
-        // all three boxes should be non-empty and exactly same in value
-        if ((gameGrid[position[0]] !== '' || gameGrid[position[1]] !== '' || gameGrid[position[2]] !== '' )
-        && (gameGrid[position[0]] == (gameGrid[position[1]])) &&  (gameGrid[position[1]] == (gameGrid[position[2]]))) {
-            // check if winner is x
-            if(gameGrid[position[0]] === 'X') {
+        // Check if all three boxes in the position are non-empty and have the same value
+        if ((gameGrid[position[0]] !== '' || gameGrid[position[1]] !== '' || gameGrid[position[2]] !== '') &&
+            (gameGrid[position[0]] == gameGrid[position[1]]) && (gameGrid[position[1]] == gameGrid[position[2]])) {
+            // Determine the winner
+            if (gameGrid[position[0]] === 'X') {
                 answer = 'X';
             } else {
                 answer = 'O';
             }
 
-            // disable pointer event
+            // Disable pointer events for all boxes
             boxes.forEach((box) => {
                 box.style.pointerEvents = 'none';
-            })
+            });
 
-            // now we know the winner
+            // Highlight the winning boxes
             boxes[position[0]].classList.add('win');
             boxes[position[1]].classList.add('win');
             boxes[position[2]].classList.add('win');
-
-
         }
     });
-    // it means we have a winner
+
+    // If there is a winner
     if (answer !== '') {
-        gameInfo.innerText = `Winner Player - ${answer}`;
-        newGameBtn.classList.add('active'); 
-        gameInfo.classList.add('winner');
+        gameInfo.innerText = `Winner Player - ${answer}`;  // Display the winner
+        newGameBtn.classList.add('active');  // Activate the new game button
+        gameInfo.classList.add('winner');  // Add the 'winner' class to game info
         return;
     }
-    
-    // when there is a tie
-    if (!gameGrid.includes('')) {
 
-        gameInfo.textContent = 'Game Tied !';
-        gameInfo.classList.add('tied')
-        newGameBtn.classList.add('active'); 
+    // If the game is tied
+    if (!gameGrid.includes('')) {
+        gameInfo.textContent = 'Game Tied!';  // Display the tie message
+        gameInfo.classList.add('tied');  // Add the 'tied' class to game info
+        newGameBtn.classList.add('active');  // Activate the new game button
     }
 }
 
-
-
+// Add event listener to the new game button to initialize the game
 newGameBtn.addEventListener('click', () => initGame());
