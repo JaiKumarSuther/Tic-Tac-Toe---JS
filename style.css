@@ -1,0 +1,151 @@
+/* Global styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Play', sans-serif;
+}
+body {
+    padding: 100px;
+}
+body, html {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(145deg, #4e54c8, #8f94fb);
+    background-repeat: no-repeat;
+    border: 1px solid black;
+    padding: 20px 40px;
+}
+
+/* Wrapper styles */
+.wrapper {
+    width: 100%;
+    max-width: 25rem;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+}
+
+/* Game info styles */
+.game-info {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 132, 11, 0.705);
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+.game-info.win {
+    background-color: #ffec00; /* Change color to celebrative */
+    animation: celebrate 0.8s infinite alternate; /* Add celebratory animation */
+}
+
+@keyframes celebrate {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}
+
+/* Tic Tac Toe grid styles */
+.tic-tac-toe {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    background: linear-gradient(145deg, #1e1e1e, #2e2e2e);
+    border-radius: 1rem;
+    padding: 1.2rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Box styles */
+.box {
+    width: 50px;
+    aspect-ratio: 1;
+    cursor: pointer;
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    background: radial-gradient(circle, #333, #000);
+    border: 2px solid #444;
+    border-radius: 0.5rem;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.box:hover {
+    background: radial-gradient(circle, #454545, #111);
+    transform: scale(1.05);
+}
+
+.box.win {
+    background-color: rgba(0, 230, 19, 0.705);
+    animation: highlight 0.5s infinite alternate;
+}
+
+@keyframes highlight {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}
+
+/* Button styles */
+.btn {
+    margin-top: 1rem;
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+    color: white;
+    background-color: rgba(0, 230, 19, 0.705);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 3s;
+}
+
+.btn.active {
+    display: inline-block;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* Winner game info styles */
+.game-info.winner {
+    background-color: #2196F3;
+    font-weight: bold;
+}
+
+/* Tie game info styles */
+.tied {
+    background-color: red;
+}
+
+
+
+@media screen and (max-width: 800px) {
+    body {
+        padding: 100px;
+    }
+    .wrapper {
+        scale: 1.4;
+    }
+}
