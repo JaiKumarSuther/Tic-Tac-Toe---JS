@@ -41,7 +41,7 @@ body, html {
     padding: 0.5rem 1rem;
     background-color: rgba(0, 132, 11, 0.705);
     border: 1px solid black;
-    border-radius: 0.5rem;
+    /* border-radius: 0.5rem; */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease;
 }
@@ -66,7 +66,6 @@ body, html {
     grid-template-columns: repeat(3, 1fr);
     gap: 0.5rem;
     background: linear-gradient(145deg, #1e1e1e, #2e2e2e);
-    border-radius: 1rem;
     padding: 1.2rem;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
 }
@@ -84,7 +83,6 @@ body, html {
     font-weight: bold;
     background: radial-gradient(circle, #333, #000);
     border: 2px solid #444;
-    border-radius: 0.5rem;
     transition: background 0.3s, transform 0.3s;
 }
 
@@ -94,7 +92,7 @@ body, html {
 }
 
 .box.win {
-    background-color: rgba(0, 230, 19, 0.705);
+    box-shadow: 0 0 6px 1px #454545;
     animation: highlight 0.5s infinite alternate;
 }
 
@@ -115,7 +113,7 @@ body, html {
     color: white;
     background-color: rgba(0, 230, 19, 0.705);
     border: none;
-    border-radius: 0.5rem;
+    /* border-radius: 0.5rem; */
     cursor: pointer;
     transition: background 3s;
 }
